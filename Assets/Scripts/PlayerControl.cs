@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
-    bool isDead;
+    public bool isDead;
 
     [SerializeField] GameObject Head;
     [SerializeField] GameObject Body;
@@ -33,8 +33,10 @@ public class PlayerControl : MonoBehaviour
                 gameObject.transform.Translate(0.1f, 0, 0.1f);
             }
 
-            gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
+          
         }
+
+        gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
 
         if (isDead == false)
         {
@@ -44,6 +46,7 @@ public class PlayerControl : MonoBehaviour
                 Destroy(Body.gameObject);
                 Head.GetComponent<Rigidbody>().useGravity = true;
                 gameObject.GetComponent<Collider>().isTrigger = false;
+                
             }
         }
     }

@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class Gates : MonoBehaviour
 {
-    float[] Degerler = { 0.1f, 0.2f, 0.3f, -0.1f, -0.2f, -0.3f };
     public float KatSayi;
+
+    public SizeValues Boyut;
+    public List<float> BoyutDegerleri =new List<float> {0.1f,0.2f,0.3f};
 
     [SerializeField] GameObject Gate;
     [SerializeField] TextMeshProUGUI SayiText;
@@ -19,8 +21,36 @@ public class Gates : MonoBehaviour
     {
         renderer = Gate.GetComponent<Renderer>();
 
-        KatSayi = Degerler[UnityEngine.Random.Range(0, Degerler.Length)];
+        KatSayi = BoyutDegerleri[UnityEngine.Random.Range(0, BoyutDegerleri.Count)];
 
+
+       
+    }
+
+    void Baslarken()
+    {
+
+        if (Boyut == SizeValues.GENISLET)
+        {
+            this.gameObject.tag = "Widht";
+
+        }
+        else if (Boyut == SizeValues.DARALT)
+        {
+            this.gameObject.tag = "Widht";
+            KatSayi = KatSayi * -1;
+        }
+        else if (Boyut == SizeValues.UZAT)
+        {
+            this.gameObject.tag = "Height";
+        }
+        else if (Boyut == SizeValues.KISALT)
+        {
+            this.gameObject.tag = "Height";
+            KatSayi = KatSayi * -1;
+        }
+
+        SayiText.text = (KatSayi * 100).ToString();
 
         if (KatSayi < 0)
         {
@@ -30,34 +60,14 @@ public class Gates : MonoBehaviour
         {
             renderer.material = Yesil;
         }
+    }
 
-        SayiText.text = (KatSayi * 100).ToString();
 
-
-        float Belirleme = Random.Range(-1,2);
-        if (Belirleme != 0)
-        {
-            gameObject.tag = "Widht";
-            if(KatSayi > 0)
-            {
-                SayiText.text ="9"+ (KatSayi * 100).ToString();
-            }
-            else
-            {
-                SayiText.text ="8"+(KatSayi*100).ToString();
-            }
-        }
-        else
-        {
-            gameObject.tag = "Height";
-            if (KatSayi > 0)
-            {
-                SayiText.text = "7" + (KatSayi * 100).ToString();
-            }
-            else
-            {
-                SayiText.text = "6" + (KatSayi * 100).ToString();
-            }
-        }
+    public enum SizeValues
+    {
+        GENISLET,
+        DARALT,
+        UZAT,
+        KISALT
     }
 }
