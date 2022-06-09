@@ -26,25 +26,44 @@ public class PlayerControl : MonoBehaviour
             }
             if (Input.GetKey(KeyCode.A))
             {
-                gameObject.transform.Translate(-0.1f, 0, 0.1f);
+                if (gameObject.transform.position.x > -4)
+                {
+                    gameObject.transform.Translate(-0.1f, 0, 0.1f);
+                }
+                else
+                {
+                    gameObject.transform.Translate(0, 0, 0.1f);
+
+                }
             }
             if (Input.GetKey(KeyCode.D))
             {
-                gameObject.transform.Translate(0.1f, 0, 0.1f);
+                if (gameObject.transform.position.x <4)
+                {
+                    gameObject.transform.Translate(0.1f, 0, 0.1f);
+                }
+                else
+                {
+                    gameObject.transform.Translate(0, 0, 0.1f);
+
+                }
             }
 
-          
         }
 
         gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
-
         if (isDead == false)
         {
-            if (Body.transform.localScale.x <= 0 || Body.transform.localScale.y <= 0)
+            Head.transform.localPosition = new Vector3(Body.transform.localPosition.x, (Body.transform.localScale.y * 2f), Body.transform.localPosition.x);
+        }
+        if (isDead == false)
+        {
+            if (Body.transform.localScale.x <= 0.1f|| Body.transform.localScale.y <= 0.3f)
             {
                 isDead = true;
                 Destroy(Body.gameObject);
                 Head.GetComponent<Rigidbody>().useGravity = true;
+                Head.GetComponent<Collider>().isTrigger = false;
                 gameObject.GetComponent<Collider>().isTrigger = false;
                 
             }
@@ -73,6 +92,33 @@ public class PlayerControl : MonoBehaviour
                 Destroy(other.gameObject);
             }
 
+            ÝkiliGecit();
+
+            if(other.gameObject.tag == "Bariyer")
+            {
+                BariyerEnter();
+            }
+
+            
+            
+        }
+
+        void BariyerEnter()
+        {
+            if (Body.gameObject.transform.localScale.y > 0.8f)
+            {
+                Body.gameObject.transform.localScale -= new Vector3(0, 0.1f, 0);
+                //Head.gameObject.transform.localPosition -= new Vector3(0, 0.2f, 0);
+                Body.gameObject.transform.localPosition -= new Vector3(0,0.1f, 0);
+            }
+            else
+            {
+                Body.gameObject.transform.localScale -= new Vector3(0.1f, 0, 0.1f);
+            }
+        }
+
+        void ÝkiliGecit()
+        {
             if (other.gameObject.tag == "SolWidht")
             {
                 DoubleGate doubleGate = other.GetComponentInParent<DoubleGate>();
@@ -106,6 +152,10 @@ public class PlayerControl : MonoBehaviour
                 other.GetComponentInParent<DoubleGate>().Destroy();
             }
         }
+
+       
     }
+
+  
    
 }

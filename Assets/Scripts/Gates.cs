@@ -22,6 +22,7 @@ public class Gates : MonoBehaviour
         renderer = Gate.GetComponent<Renderer>();
 
         KatSayi = BoyutDegerleri[UnityEngine.Random.Range(0, BoyutDegerleri.Count)];
+        Baslarken();
 
 
        

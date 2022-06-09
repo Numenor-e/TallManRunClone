@@ -21,7 +21,10 @@ public class CamFollow : MonoBehaviour
 
     private void Follow()
     {
-        if(playerControl.GetComponent<PlayerControl>().isDead==false)
-        transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y + 5, Player.transform.position.z - 10);
+
+        if (playerControl.GetComponent<PlayerControl>().isDead == false)
+        {
+            transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y + 5, Player.transform.position.z - 10);
+        }
     }
 }
