@@ -2,27 +2,30 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class PlayerControl : MonoBehaviour
+namespace TallManRun
 {
-    public bool isDead;
-    bool isFinish;
-
-    [SerializeField] GameObject Head;
-    [SerializeField] GameObject Body;
-
-
-    void FixedUpdate()
+    public class PlayerControl : MonoBehaviour
     {
-        Kontrol();
-    }
+        public bool isDead;
+        bool isFinish;
 
-    private void Kontrol()
-    {
-        if (isDead==false)
+        [SerializeField] private GameObject m_Head;
+        [SerializeField] private GameObject m_Body;
+
+
+        void FixedUpdate()
         {
-            if (isFinish == false)
-            {         
+            Kontrol();
+        }
+
+        private void Kontrol()
+        {
+            if (isDead == false)
+            {
+                if (isFinish == false)
+                {
                     if (Input.GetKey(KeyCode.W))
                     {
                         gameObject.transform.Translate(0, 0, 0.1f);
@@ -50,122 +53,138 @@ public class PlayerControl : MonoBehaviour
                             gameObject.transform.Translate(0, 0, 0.1f);
 
                         }
-                    }   
+                    }
+                }
+                else
+                {
+                    gameObject.transform.Translate(0, 0, 0.1f);
+                }
+
+            }
+
+            gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
+            if (isDead == false)
+            {
+                m_Head.transform.localPosition = new Vector3(m_Body.transform.localPosition.x, (m_Body.transform.localScale.y * 2f), m_Body.transform.localPosition.x);
+            }
+            if (isDead == false)
+            {
+                if (m_Body.transform.localScale.x <= 0.1f || m_Body.transform.localScale.y <= 0.3f)
+                {
+                    StartCoroutine(Dead());
+
+                    isDead = true;
+                    Destroy(m_Body.gameObject);
+                    m_Head.GetComponent<Rigidbody>().useGravity = true;
+                    m_Head.GetComponent<Collider>().isTrigger = false;
+                    gameObject.GetComponent<Collider>().isTrigger = false;
+
+
+                }
+            }
+
+            if (isDead == false && m_Body.transform.position.y < -3)
+            {
+                StartCoroutine(Dead());
+                isDead = true;
+            }
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (isDead == false)
+            {
+
+                if (other.gameObject.tag == "Widht")
+                {
+                    Gates gate = other.GetComponentInParent<Gates>();
+
+                    m_Body.transform.localScale += new Vector3(gate.kSayi, 0, gate.kSayi);
+                    Destroy(other.gameObject);
+                }
+                else if (other.gameObject.tag == "Height")
+                {
+                    Gates gate = other.GetComponentInParent<Gates>();
+
+                    m_Body.transform.localScale += new Vector3(0, gate.kSayi, 0);
+                    m_Body.transform.localPosition += new Vector3(0, gate.kSayi, 0);
+                    m_Head.transform.localPosition += new Vector3(0, gate.kSayi + gate.kSayi, 0);
+                    Destroy(other.gameObject);
+                }
+
+                else if (other.gameObject.tag == "SolWidht")
+                {
+                    DoubleGate doubleGate = other.GetComponentInParent<DoubleGate>();
+
+                    m_Body.transform.localScale += new Vector3(doubleGate.kSayi1, 0, doubleGate.kSayi1);
+                    other.GetComponentInParent<DoubleGate>().Destroy();
+                }
+                else if (other.gameObject.tag == "SagWidht")
+                {
+                    DoubleGate doubleGate = other.GetComponentInParent<DoubleGate>();
+
+                    m_Body.transform.localScale += new Vector3(doubleGate.kSayi2, 0, doubleGate.kSayi2);
+                    other.GetComponentInParent<DoubleGate>().Destroy();
+                }
+                else if (other.gameObject.tag == "SolHeight")
+                {
+                    DoubleGate doubleGate = other.GetComponentInParent<DoubleGate>();
+
+                    m_Body.transform.localScale += new Vector3(0, doubleGate.kSayi1, 0);
+                    m_Body.transform.localPosition += new Vector3(0, doubleGate.kSayi1, 0);
+                    m_Head.transform.localPosition += new Vector3(0, doubleGate.kSayi1 + doubleGate.kSayi1, 0);
+                    other.GetComponentInParent<DoubleGate>().Destroy();
+                }
+                else if (other.gameObject.tag == "SagHeight")
+                {
+                    DoubleGate doubleGate = other.GetComponentInParent<DoubleGate>();
+
+                    m_Body.transform.localScale += new Vector3(0, doubleGate.kSayi2, 0);
+                    m_Body.transform.localPosition += new Vector3(0, doubleGate.kSayi2, 0);
+                    m_Head.transform.localPosition += new Vector3(0, doubleGate.kSayi2 + doubleGate.kSayi2, 0);
+                    other.GetComponentInParent<DoubleGate>().Destroy();
+                }
+                else if (other.gameObject.tag == "Bariyer")
+                {
+                    BariyerEnter();
+                }
+
+                else if (other.gameObject.tag == "Plaka")
+                {
+                    isFinish = true;
+                }
+
+
+
+
+
+            }
+
+
+        }
+        void BariyerEnter()
+        {
+            if (m_Body.gameObject.transform.localScale.y > 0.8f)
+            {
+                m_Body.gameObject.transform.localScale -= new Vector3(0, 0.1f, 0);
+                m_Body.gameObject.transform.localPosition -= new Vector3(0, 0.1f, 0);
             }
             else
             {
-                gameObject.transform.Translate(0, 0, 0.1f);
+                m_Body.gameObject.transform.localScale -= new Vector3(0.1f, 0, 0.1f);
             }
+        }
+
+        IEnumerator Dead()
+        {
+            yield return new WaitForSeconds(2f);
+            SceneManager.LoadScene(0);
+
 
         }
 
-        gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
-        if (isDead == false)
-        {
-            Head.transform.localPosition = new Vector3(Body.transform.localPosition.x, (Body.transform.localScale.y * 2f), Body.transform.localPosition.x);
-        }
-        if (isDead == false)
-        {
-            if (Body.transform.localScale.x <= 0.1f|| Body.transform.localScale.y <= 0.3f)
-            {
-                isDead = true;
-                Destroy(Body.gameObject);
-                Head.GetComponent<Rigidbody>().useGravity = true;
-                Head.GetComponent<Collider>().isTrigger = false;
-                gameObject.GetComponent<Collider>().isTrigger = false;
-                
-            }
-        }
+
+
+
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (isDead==false)
-        {
-
-            if (other.gameObject.tag == "Widht")
-            {
-                Gates gate = other.GetComponentInParent<Gates>();
-
-                Body.transform.localScale += new Vector3(gate.KatSayi, 0, gate.KatSayi);
-                Destroy(other.gameObject);
-            }
-            if (other.gameObject.tag == "Height")
-            {
-                Gates gate = other.GetComponentInParent<Gates>();
-
-                Body.transform.localScale += new Vector3(0, gate.KatSayi, 0);
-                Body.transform.localPosition += new Vector3(0, gate.KatSayi, 0);
-                Head.transform.localPosition += new Vector3(0, gate.KatSayi + gate.KatSayi, 0);
-                Destroy(other.gameObject);
-            }
-
-            if (other.gameObject.tag == "SolWidht")
-            {
-                DoubleGate doubleGate = other.GetComponentInParent<DoubleGate>();
-
-                Body.transform.localScale += new Vector3(doubleGate.KatSayi1, 0, doubleGate.KatSayi1);
-                other.GetComponentInParent<DoubleGate>().Destroy();
-            }
-            if (other.gameObject.tag == "SagWidht")
-            {
-                DoubleGate doubleGate = other.GetComponentInParent<DoubleGate>();
-
-                Body.transform.localScale += new Vector3(doubleGate.KatSayi2, 0, doubleGate.KatSayi2);
-                other.GetComponentInParent<DoubleGate>().Destroy();
-            }
-            if (other.gameObject.tag == "SolHeight")
-            {
-                DoubleGate doubleGate = other.GetComponentInParent<DoubleGate>();
-
-                Body.transform.localScale += new Vector3(0, doubleGate.KatSayi1, 0);
-                Body.transform.localPosition += new Vector3(0, doubleGate.KatSayi1, 0);
-                Head.transform.localPosition += new Vector3(0, doubleGate.KatSayi1 + doubleGate.KatSayi1, 0);
-                other.GetComponentInParent<DoubleGate>().Destroy();
-            }
-            if (other.gameObject.tag == "SagHeight")
-            {
-                DoubleGate doubleGate = other.GetComponentInParent<DoubleGate>();
-
-                Body.transform.localScale += new Vector3(0, doubleGate.KatSayi2, 0);
-                Body.transform.localPosition += new Vector3(0, doubleGate.KatSayi2, 0);
-                Head.transform.localPosition += new Vector3(0, doubleGate.KatSayi2 + doubleGate.KatSayi2, 0);
-                other.GetComponentInParent<DoubleGate>().Destroy();
-            }
-            if (other.gameObject.tag == "Bariyer")
-            {
-                BariyerEnter();
-            }
-
-            if (other.gameObject.tag == "Plaka")
-            {
-                isFinish = true;
-            }
-
-
-            
-
-
-        }
-
-       
-    }
-    void BariyerEnter()
-    {
-        if (Body.gameObject.transform.localScale.y > 0.8f)
-        {
-            Body.gameObject.transform.localScale -= new Vector3(0, 0.1f, 0);
-            //Head.gameObject.transform.localPosition -= new Vector3(0, 0.2f, 0);
-            Body.gameObject.transform.localPosition -= new Vector3(0, 0.1f, 0);
-        }
-        else
-        {
-            Body.gameObject.transform.localScale -= new Vector3(0.1f, 0, 0.1f);
-        }
-    }
-
-    
-
-
-
 }

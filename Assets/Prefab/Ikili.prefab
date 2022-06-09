@@ -247,14 +247,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 929174c0eadb16744b64d9ce05ee67d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  KatSayi1: 0
-  KatSayi2: 0
+  kSayi1: 0
+  kSayi2: 0
   Yesil: {fileID: 2100000, guid: 050c227f45198574c8d7caa309a40ff7, type: 2}
   kirmizi: {fileID: 2100000, guid: cecea9f35e15e364a934c81a2901d035, type: 2}
-  Gate1: {fileID: 3334072900331044445}
-  SayiText1: {fileID: 3334072900018053625}
-  Gate2: {fileID: 3334072899750002347}
-  SayiText2: {fileID: 3334072900569246566}
+  _Gate1: {fileID: 3334072900331044445}
+  _SayiText1: {fileID: 3334072900018053625}
+  _Gate2: {fileID: 3334072899750002347}
+  _SayiText2: {fileID: 3334072900569246566}
 --- !u!1 &3334072899750002347
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,17 +2,19 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TallManRun;
+
 
 public class CamFollow : MonoBehaviour
 {
     public Transform Player;
 
-    GameObject playerControl;
+    private GameObject _pControl;
 
     private void Start()
     {
-        playerControl = GameObject.Find("Player");
-        
+        _pControl = GameObject.Find("Player");
+
     }
     private void LateUpdate()
     {
@@ -22,7 +24,7 @@ public class CamFollow : MonoBehaviour
     private void Follow()
     {
 
-        if (playerControl.GetComponent<PlayerControl>().isDead == false)
+        if (_pControl.GetComponent<PlayerControl>().isDead == false)
         {
             transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y + 5, Player.transform.position.z - 10);
         }

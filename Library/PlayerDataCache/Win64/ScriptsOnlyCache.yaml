@@ -4,7 +4,7 @@ ScriptsOnlyBuild:
     - CamFollow
     - DoubleGate
     - Gates
-    - PlayerControl
+    - TallManRun.PlayerControl
     - Trambolin
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
@@ -25,7 +25,7 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.CanvasScaler
     - UnityEngine.UI.GraphicRaycaster
   sceneClasses:
-    Assets/Scenes/SampleScene.unity:
+    Assets/Scenes/Sahne1.unity:
     - Class: 1
       Script: {instanceID: 0}
     - Class: 4
@@ -253,7 +253,7 @@ ScriptsOnlyBuild:
     className: Benchmark02
   - hash:
       serializedVersion: 2
-      Hash: 1ff96f196577e61f93c9970f87166254
+      Hash: 1ce53fe2e144d8b2a5e9bbfc98fb040b
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Trambolin
@@ -547,7 +547,7 @@ ScriptsOnlyBuild:
     className: ActivationTrack
   - hash:
       serializedVersion: 2
-      Hash: 4e8143460f3ec0749867dcfe745f8b81
+      Hash: 796420f189bba7c65280ce013fa01e02
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Gates
@@ -643,7 +643,7 @@ ScriptsOnlyBuild:
     className: TMP_SubMeshUI
   - hash:
       serializedVersion: 2
-      Hash: 02acac625d64d806d8947acb784394ad
+      Hash: 9b935649462c0fd5170d1f01da0f8c83
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: DoubleGate
@@ -703,9 +703,9 @@ ScriptsOnlyBuild:
     className: TextConsoleSimulator
   - hash:
       serializedVersion: 2
-      Hash: ae0b8c56dcfff11618bc793c4aba7298
+      Hash: d51e84c5c81872e177a3d16a83090287
     assemblyName: Assembly-CSharp.dll
-    namespaceName: 
+    namespaceName: TallManRun
     className: PlayerControl
   - hash:
       serializedVersion: 2
@@ -763,5 +763,5 @@ ScriptsOnlyBuild:
     className: TMP_TextEventCheck
   platform: 19
   scenePathNames:
-  - Assets/Scenes/SampleScene.unity
+  - Assets/Scenes/Sahne1.unity
   playerPath: C:/Users/mhrdm/Desktop/ProjeBuild/TallManRunClone/TallManRunClone.exe

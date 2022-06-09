@@ -5,27 +5,27 @@ using UnityEngine;
 
 public class Gates : MonoBehaviour
 {
-    public float KatSayi;
+    public float kSayi;
 
     public SizeValues Boyut;
-    public List<float> BoyutDegerleri =new List<float> {0.1f,0.2f,0.3f};
+    public List<float> boyutDegerleri = new List<float> { 0.1f, 0.2f, 0.3f };
 
     [SerializeField] GameObject Gate;
     [SerializeField] TextMeshProUGUI SayiText;
 
-    private Renderer renderer;
+    private Renderer _Renderer;
 
     public Material Yesil;
     public Material Kirmizi;
     private void Start()
     {
-        renderer = Gate.GetComponent<Renderer>();
+        _Renderer = Gate.GetComponent<Renderer>();
 
-        KatSayi = BoyutDegerleri[UnityEngine.Random.Range(0, BoyutDegerleri.Count)];
+        kSayi = boyutDegerleri[UnityEngine.Random.Range(0, boyutDegerleri.Count)];
         Baslarken();
 
 
-       
+
     }
 
     void Baslarken()
@@ -39,7 +39,7 @@ public class Gates : MonoBehaviour
         else if (Boyut == SizeValues.DARALT)
         {
             this.gameObject.tag = "Widht";
-            KatSayi = KatSayi * -1;
+            kSayi = kSayi * -1;
         }
         else if (Boyut == SizeValues.UZAT)
         {
@@ -48,18 +48,18 @@ public class Gates : MonoBehaviour
         else if (Boyut == SizeValues.KISALT)
         {
             this.gameObject.tag = "Height";
-            KatSayi = KatSayi * -1;
+            kSayi = kSayi * -1;
         }
 
-        SayiText.text = (KatSayi * 100).ToString();
+        SayiText.text = (kSayi * 100).ToString();
 
-        if (KatSayi < 0)
+        if (kSayi < 0)
         {
-            renderer.material = Kirmizi;
+            _Renderer.material = Kirmizi;
         }
         else
         {
-            renderer.material = Yesil;
+            _Renderer.material = Yesil;
         }
     }
 
