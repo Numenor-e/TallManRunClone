@@ -2,8 +2,10 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - CamFollow
+    - DoubleGate
     - Gates
     - PlayerControl
+    - Trambolin
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
     Unity.TextMeshPro.dll:
@@ -14,9 +16,7 @@ ScriptsOnlyBuild:
     - TMPro.TMP_StyleSheet
     - TMPro.TextMeshProUGUI
     UnityEditor.TestRunner.dll:
-    - TestRunner.Callbacks.WindowResultUpdaterDataHolder
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
-    - UnityEditor.TestTools.TestRunner.CommandLineTest.RunData
     - UnityEditor.TestTools.TestRunner.TestListCacheData
     - UnityEditor.TestTools.TestRunner.TestRun.TestJobDataHolder
     UnityEngine.UI.dll:
@@ -67,27 +67,27 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1976}
     - Class: 114
-      Script: {instanceID: 2264}
+      Script: {instanceID: 2216}
     - Class: 114
-      Script: {instanceID: 2368}
+      Script: {instanceID: 2266}
     - Class: 114
-      Script: {instanceID: 2408}
+      Script: {instanceID: 2370}
     - Class: 114
-      Script: {instanceID: 2698}
+      Script: {instanceID: 2410}
     - Class: 114
-      Script: {instanceID: 3364}
+      Script: {instanceID: 2700}
     - Class: 114
-      Script: {instanceID: 3564}
+      Script: {instanceID: 3366}
     - Class: 114
-      Script: {instanceID: 3670}
+      Script: {instanceID: 3566}
     - Class: 114
-      Script: {instanceID: 3918}
+      Script: {instanceID: 3672}
     - Class: 114
-      Script: {instanceID: 4026}
+      Script: {instanceID: 3834}
     - Class: 114
-      Script: {instanceID: 15734}
+      Script: {instanceID: 3920}
     - Class: 114
-      Script: {instanceID: 15744}
+      Script: {instanceID: 4028}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -251,6 +251,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: TMPro.Examples
     className: Benchmark02
+  - hash:
+      serializedVersion: 2
+      Hash: 1ff96f196577e61f93c9970f87166254
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Trambolin
   - hash:
       serializedVersion: 2
       Hash: a1aa98c78061c6f03a8c124cda576e67

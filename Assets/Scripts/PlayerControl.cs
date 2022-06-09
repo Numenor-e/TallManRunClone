@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerControl : MonoBehaviour
 {
     public bool isDead;
+    bool isFinish;
 
     [SerializeField] GameObject Head;
     [SerializeField] GameObject Body;
@@ -20,33 +21,40 @@ public class PlayerControl : MonoBehaviour
     {
         if (isDead==false)
         {
-            if (Input.GetKey(KeyCode.W))
+            if (isFinish == false)
+            {         
+                    if (Input.GetKey(KeyCode.W))
+                    {
+                        gameObject.transform.Translate(0, 0, 0.1f);
+                    }
+                    if (Input.GetKey(KeyCode.A))
+                    {
+                        if (gameObject.transform.position.x > -4)
+                        {
+                            gameObject.transform.Translate(-0.1f, 0, 0.1f);
+                        }
+                        else
+                        {
+                            gameObject.transform.Translate(0, 0, 0.1f);
+
+                        }
+                    }
+                    if (Input.GetKey(KeyCode.D))
+                    {
+                        if (gameObject.transform.position.x < 4)
+                        {
+                            gameObject.transform.Translate(0.1f, 0, 0.1f);
+                        }
+                        else
+                        {
+                            gameObject.transform.Translate(0, 0, 0.1f);
+
+                        }
+                    }   
+            }
+            else
             {
                 gameObject.transform.Translate(0, 0, 0.1f);
-            }
-            if (Input.GetKey(KeyCode.A))
-            {
-                if (gameObject.transform.position.x > -4)
-                {
-                    gameObject.transform.Translate(-0.1f, 0, 0.1f);
-                }
-                else
-                {
-                    gameObject.transform.Translate(0, 0, 0.1f);
-
-                }
-            }
-            if (Input.GetKey(KeyCode.D))
-            {
-                if (gameObject.transform.position.x <4)
-                {
-                    gameObject.transform.Translate(0.1f, 0, 0.1f);
-                }
-                else
-                {
-                    gameObject.transform.Translate(0, 0, 0.1f);
-
-                }
             }
 
         }
@@ -92,33 +100,6 @@ public class PlayerControl : MonoBehaviour
                 Destroy(other.gameObject);
             }
 
-            ÝkiliGecit();
-
-            if(other.gameObject.tag == "Bariyer")
-            {
-                BariyerEnter();
-            }
-
-            
-            
-        }
-
-        void BariyerEnter()
-        {
-            if (Body.gameObject.transform.localScale.y > 0.8f)
-            {
-                Body.gameObject.transform.localScale -= new Vector3(0, 0.1f, 0);
-                //Head.gameObject.transform.localPosition -= new Vector3(0, 0.2f, 0);
-                Body.gameObject.transform.localPosition -= new Vector3(0,0.1f, 0);
-            }
-            else
-            {
-                Body.gameObject.transform.localScale -= new Vector3(0.1f, 0, 0.1f);
-            }
-        }
-
-        void ÝkiliGecit()
-        {
             if (other.gameObject.tag == "SolWidht")
             {
                 DoubleGate doubleGate = other.GetComponentInParent<DoubleGate>();
@@ -151,11 +132,40 @@ public class PlayerControl : MonoBehaviour
                 Head.transform.localPosition += new Vector3(0, doubleGate.KatSayi2 + doubleGate.KatSayi2, 0);
                 other.GetComponentInParent<DoubleGate>().Destroy();
             }
+            if (other.gameObject.tag == "Bariyer")
+            {
+                BariyerEnter();
+            }
+
+            if (other.gameObject.tag == "Plaka")
+            {
+                isFinish = true;
+            }
+
+
+            
+
+
         }
 
        
     }
+    void BariyerEnter()
+    {
+        if (Body.gameObject.transform.localScale.y > 0.8f)
+        {
+            Body.gameObject.transform.localScale -= new Vector3(0, 0.1f, 0);
+            //Head.gameObject.transform.localPosition -= new Vector3(0, 0.2f, 0);
+            Body.gameObject.transform.localPosition -= new Vector3(0, 0.1f, 0);
+        }
+        else
+        {
+            Body.gameObject.transform.localScale -= new Vector3(0.1f, 0, 0.1f);
+        }
+    }
 
-  
-   
+    
+
+
+
 }
